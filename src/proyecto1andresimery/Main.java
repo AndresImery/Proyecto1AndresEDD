@@ -4,6 +4,11 @@
  */
 package proyecto1andresimery;
 
+
+
+import org.graphstream.graph.*;
+
+
 /**
  *
  * @author andresimery
@@ -14,7 +19,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Function func = new Function();
+        Grafo grafo = func.readTxt();
+        
+        
+        
+        Graph graph = grafo.grafoToGraphStream();
+        
+        Ventana1 v1 = new Ventana1(graph);
+       
     }
     
 }

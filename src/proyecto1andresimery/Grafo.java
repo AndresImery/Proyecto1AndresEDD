@@ -254,7 +254,7 @@ public class Grafo {
     
     
     public Graph grafoToGraphStream() {
-        Graph graph = new SingleGraph("Usuarios");
+        Graph graph = new SingleGraph("embedded");
         Nodo<User> pointer = getUsers().getHead();
         Nodo<Relation> pointer2 = getRelations().getHead();
         for (int i = 0; i < getUsers().getSize(); i++) {
@@ -264,8 +264,10 @@ public class Grafo {
             pointer = pointer.getNext();    
         }
         
+        
         for (int i = 0; i < getRelations().getSize(); i++) {
-            graph.addEdge(pointer2.getElement().getUser1().getId() + " + " + pointer2.getElement().getUser2().getId(), Integer.toString(pointer2.getElement().getUser1().getId()), Integer.toString(pointer2.getElement().getUser2().getId()));
+            Edge edge = graph.addEdge(pointer2.getElement().getUser1().getId() + " + " + pointer2.getElement().getUser2().getId(), Integer.toString(pointer2.getElement().getUser1().getId()), Integer.toString(pointer2.getElement().getUser2().getId()));
+            edge.addAttribute("ui.label", Integer.toString(pointer2.getElement().getTime()));
             
             pointer2 = pointer2.getNext();
         }
@@ -275,12 +277,13 @@ public class Grafo {
     }
     protected String styleSheet =
             "node {" +
-            "	fill-color: black;" +
             "   size: 20;" +
             "   text-size: 20;" +
-            "   text-alignment: at-right;" +
+            "   text-alignment: at-left;" +
             "	fill-color: red;" +
+            "   text-offset: 0px, 4px;" +
             "}" +
+            "node { text-alignment: under; text-color: black; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px; } node#C {text-alignment:above; text-offset: 0px, -2px;}" + 
             "node.marked {" +
             "	fill-color: red;" +
             "}" +
