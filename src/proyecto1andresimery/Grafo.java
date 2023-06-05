@@ -105,7 +105,7 @@ public class Grafo {
         User user = null;
         Nodo<User> pointer = getUsers().getHead();
         for (int i = 0; i < getUsers().getSize(); i++) {
-            if (pointer.getElement().getUsername().equals(username)) {
+            if (pointer.getElement().getUsername().toLowerCase().equals(username.toLowerCase())) {
                 user = pointer.getElement();
                 break;
             }

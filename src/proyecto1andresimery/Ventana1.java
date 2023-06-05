@@ -36,8 +36,20 @@ public class Ventana1 extends javax.swing.JFrame {
         
     }
     
+    public Grafo getGrafo() {
+        return this.grafo;
+    }
+    
     public void addUser(User user) {
         this.grafo.addUser(user);
+        this.graph = this.grafo.grafoToGraphStream();
+        
+        jPanelGraph.removeAll();
+        createUIComponents(this.graph);
+    }
+    
+    public void addRelation(Relation relation) {
+        this.grafo.addRelation(relation);
         this.graph = this.grafo.grafoToGraphStream();
         
         jPanelGraph.removeAll();
@@ -96,12 +108,12 @@ public class Ventana1 extends javax.swing.JFrame {
 
     private void jButtonNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewUserActionPerformed
         new NewUserWindow(this);
-//        this.grafo.addUser(newUserWindow.user);
         setVisible(false);
     }//GEN-LAST:event_jButtonNewUserActionPerformed
 
     private void jButtonNewRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewRelationActionPerformed
-        // TODO add your handling code here:
+        new NewRelationByNameWindow(this);
+        setVisible(false);
     }//GEN-LAST:event_jButtonNewRelationActionPerformed
 
     /**
