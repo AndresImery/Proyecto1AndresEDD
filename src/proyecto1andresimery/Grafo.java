@@ -4,6 +4,8 @@
  */
 package proyecto1andresimery;
 
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 /**
  *
  * @author andresimery
