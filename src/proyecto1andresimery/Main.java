@@ -26,7 +26,7 @@ public class Main {
         
         Graph graph = grafo.grafoToGraphStream();
         
-        Ventana1 v1 = new Ventana1(graph);
+        Ventana1 v1 = new Ventana1(graph, grafo);
        
     }
     

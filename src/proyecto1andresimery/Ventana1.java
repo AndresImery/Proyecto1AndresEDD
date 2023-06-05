@@ -20,20 +20,28 @@ import org.graphstream.ui.view.*;
  */
 public class Ventana1 extends javax.swing.JFrame {
     private static Graph graph;
-    private JPanel graphPanel;
-    private JPanel label;
+    private static Grafo grafo;
     
     /**
      * Creates new form Ventana1
      */
-    public Ventana1(Graph graph) {
+    public Ventana1(Graph graph, Grafo grafo) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         createUIComponents(graph);
         this.graph = graph;
+        this.grafo = grafo;
         
         
+    }
+    
+    public void addUser(User user) {
+        this.grafo.addUser(user);
+        this.graph = this.grafo.grafoToGraphStream();
+        
+        jPanelGraph.removeAll();
+        createUIComponents(this.graph);
     }
     
     public void createUIComponents(Graph graph) {
@@ -59,27 +67,42 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jPanelGraph = new javax.swing.JPanel();
         jButtonNewUser = new javax.swing.JButton();
+        jButtonNewRelation = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(jPanelGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 780, 530));
+        getContentPane().add(jPanelGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 780, 510));
 
-        jButtonNewUser.setText("New User");
+        jButtonNewUser.setText("Nuevo Usuario");
         jButtonNewUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewUserActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 100, -1));
+        getContentPane().add(jButtonNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, -1));
+
+        jButtonNewRelation.setText("Nueva Relacion");
+        jButtonNewRelation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewRelationActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonNewRelation, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewUserActionPerformed
-        // TODO add your handling code here:
+        new NewUserWindow(this);
+//        this.grafo.addUser(newUserWindow.user);
+        setVisible(false);
     }//GEN-LAST:event_jButtonNewUserActionPerformed
+
+    private void jButtonNewRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewRelationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNewRelationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,13 +134,14 @@ public class Ventana1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana1(graph).setVisible(true);
+                new Ventana1(graph, grafo).setVisible(true);
             }
         });
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonNewRelation;
     private javax.swing.JButton jButtonNewUser;
     private javax.swing.JPanel jPanelGraph;
     // End of variables declaration//GEN-END:variables

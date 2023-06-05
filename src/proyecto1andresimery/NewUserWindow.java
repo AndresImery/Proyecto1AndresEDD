@@ -4,19 +4,27 @@
  */
 package proyecto1andresimery;
 
+import javax.swing.JOptionPane;
+import org.graphstream.graph.*;
+
 /**
  *
  * @author andresimery
  */
 public class NewUserWindow extends javax.swing.JFrame {
-
+    private static Ventana1 v1;
     /**
      * Creates new form NewUserWindow
      */
-    public NewUserWindow() {
+    public NewUserWindow(Ventana1 v1) {
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        this.v1 = v1;
     }
 
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,33 +36,94 @@ public class NewUserWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jTextPaneName = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPaneID = new javax.swing.JTextPane();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(jTextPaneName);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 200, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 200, -1));
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setText("Nuevo Usuario");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 190, -1));
 
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 140, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 140, -1));
 
         jLabel3.setText("@");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 20, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 20, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 420));
+        jScrollPane2.setViewportView(jTextPaneID);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 200, -1));
+
+        jLabel4.setText("ID:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        jButtonCancel.setText("Cancelar");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+
+        jButtonAdd.setText("Agregar");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 80, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 270));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        try {
+            Integer id = null;
+            String name = null;
+            id = Integer.valueOf(jTextPaneID.getText());
+            name = jTextPaneName.getText();
+            if (name.contains("@") || name.contains(" ")) {
+                throw new Exception("No agregar el @ ni agregar espacios.");
+            }
+            User user = new User(id, "@" + name);
+
+            v1.addUser(user);
+            v1.setVisible(true);
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al agregar el Usuario.\nEl ID debe ser un entero.");
+            System.out.println(e);
+            v1.setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al agregar el Usuario.\n" + e.getMessage());
+            System.out.println(e);
+            v1.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        v1.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -86,17 +155,22 @@ public class NewUserWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewUserWindow().setVisible(true);
+                new NewUserWindow(v1).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextPane jTextPaneID;
+    private javax.swing.JTextPane jTextPaneName;
     // End of variables declaration//GEN-END:variables
 }
