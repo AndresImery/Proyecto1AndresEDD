@@ -61,6 +61,27 @@ public class List<T> {
             pointer.setNext(pointer.getNext().getNext());
             size--;
         }
+    } 
+    
+    public void deleteByElement(T element) {
+        Nodo<T> pointer = getHead();
+        if (!isEmpty()) {
+            if (element == pointer.getElement()) {
+                setHead(pointer.getNext());
+                size--;
+            } else {
+                while (pointer.getNext() != null) {
+                    if (element == pointer.getNext().getElement()) {
+                        pointer.setNext(pointer.getNext().getNext());
+                        size--;
+                        break;
+                    }
+
+                    pointer = pointer.getNext();
+                }
+            }
+            
+        }
     }
     
     public void printList() {

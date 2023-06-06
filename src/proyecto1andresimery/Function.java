@@ -14,11 +14,17 @@ import java.util.Scanner;
  * @author andresimery
  */
 public class Function {
-    public Grafo readTxt() {
-        Grafo graph = new Grafo();
+    public Grafo readTxt(File file, Grafo graph) {
+//        Grafo graph = new Grafo();
         
         try {
-            File myObj = new File("archivo.txt");
+            File myObj;
+            if (file == null) {
+                myObj = new File("archivo.txt");
+            } else {
+                myObj = file;
+
+            }
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {

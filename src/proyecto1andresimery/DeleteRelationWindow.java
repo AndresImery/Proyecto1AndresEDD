@@ -10,16 +10,30 @@ import javax.swing.JOptionPane;
  *
  * @author andresimery
  */
-public class NewRelationByNameWindow extends javax.swing.JFrame {
+public class DeleteRelationWindow extends javax.swing.JFrame {
     private static Ventana1 v1;
     /**
-     * Creates new form NewRelationByNameWindow
+     * Creates new form DeleteRelationWindow
      */
-    public NewRelationByNameWindow(Ventana1 v1) {
+    public DeleteRelationWindow(Ventana1 v1) {
         initComponents();
         this.v1 = v1;
+        loadList();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+    
+    private void loadList() {
+        List<Relation> relationList = this.v1.getGrafo().getRelations();
+        Nodo<Relation> pointer = relationList.getHead();
+        String string;
+        while (pointer != null) {
+            string = pointer.getElement().getUser1().getUsername() + " lleva con " + pointer.getElement().getUser2().getUsername() + " " + pointer.getElement().getTime() + " años";
+            listRelations.add(string);
+            
+            pointer = pointer.getNext();
+        }
+        
         
     }
 
@@ -38,52 +52,35 @@ public class NewRelationByNameWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPaneUser1 = new javax.swing.JTextPane();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPaneUser2 = new javax.swing.JTextPane();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPaneTime = new javax.swing.JTextPane();
         jButtonCancel = new javax.swing.JButton();
-        jButtonAdd = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
+        listRelations = new java.awt.List();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setText("Nueva Relación");
+        jLabel1.setText("Borrar Relación");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jLabel2.setText("Nombre Usuario 1:");
+        jLabel2.setText("Nombre 1:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jScrollPane1.setViewportView(jTextPaneUser1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 230, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 200, -1));
 
-        jLabel3.setText("@");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 20, 20));
-
-        jLabel4.setText("Nombre Usuario 2:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jLabel3.setText("Nombre 2:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jScrollPane2.setViewportView(jTextPaneUser2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 230, -1));
-
-        jLabel5.setText("@");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 20, 20));
-
-        jLabel6.setText("Tiempo de Amistad:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-
-        jScrollPane3.setViewportView(jTextPaneTime);
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 230, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 200, -1));
 
         jButtonCancel.setText("Cancelar");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -93,56 +90,51 @@ public class NewRelationByNameWindow extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
-        jButtonAdd.setText("Agregar Relación");
-        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDelete.setText("Borrar");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddActionPerformed(evt);
+                jButtonDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
+        jPanel1.add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 300));
+        listRelations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRelationsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(listRelations, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 430, 250));
+
+        jLabel4.setText("Lista de Relaciones:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        v1.setVisible(true);
+        this.v1.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        try {
-            String user1String = jTextPaneUser1.getText();
-            String user2String = jTextPaneUser2.getText();
-            if (user1String.contains("@") || user1String.contains(" ") || user2String.contains("@") || user2String.contains(" ")) {
-                throw new Exception("No agregar el @ ni agregar espacios en los usuarios.");
-            }
-            Integer time = Integer.valueOf(jTextPaneTime.getText());
-            
-            User user1 = v1.getGrafo().findUserByName("@" + user1String);
-            User user2 = v1.getGrafo().findUserByName("@" + user2String);
+    private void listRelationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRelationsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listRelationsActionPerformed
 
-            Relation relation = new Relation(user1, user2, time);
-            
-            user1.addRelation(relation);
-            user2.addRelation(relation);
-
-            v1.addRelation(relation);
-            v1.setVisible(true);
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        if (this.v1.getGrafo().findUserByName("@" + jTextPaneUser1.getText()) != null && this.v1.getGrafo().findUserByName("@" + jTextPaneUser2.getText()) != null) {
+            this.v1.getGrafo().deleteRelation("@" + jTextPaneUser1.getText(), "@" + jTextPaneUser2.getText());
+            this.v1.updateGraph();
+            JOptionPane.showMessageDialog(null, "Borrado con éxito!");
+            this.v1.setVisible(true);
             dispose();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar la relación.\nEl tiempo debe ser un entero.");
-            System.out.println(e);
-            v1.setVisible(true);
-            dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar la relació.\n" + e.getMessage());
-            System.out.println(e);
-            v1.setVisible(true);
-            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontro ninguna relación.");
+//            this.v1.setVisible(true);
+//            dispose();
         }
-    }//GEN-LAST:event_jButtonAddActionPerformed
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,39 +153,36 @@ public class NewRelationByNameWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewRelationByNameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRelationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewRelationByNameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRelationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewRelationByNameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRelationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewRelationByNameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRelationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewRelationByNameWindow(v1).setVisible(true);
+                new DeleteRelationWindow(v1).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextPane jTextPaneTime;
     private javax.swing.JTextPane jTextPaneUser1;
     private javax.swing.JTextPane jTextPaneUser2;
+    private java.awt.List listRelations;
     // End of variables declaration//GEN-END:variables
 }

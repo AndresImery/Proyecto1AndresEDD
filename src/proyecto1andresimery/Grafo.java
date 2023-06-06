@@ -43,50 +43,55 @@ public class Grafo {
         this.relations.insertLast(relation);
     }
     
+    
     public void deleteUserByName(String username) {
         User user = findUserByName(username);
-        System.out.println(user.getUsername());
-        Nodo<User> pointer = getUsers().getHead();
+        getUsers().deleteByElement(user);
         
-        for (int i = 0; i < getUsers().getSize(); i++) {
-            if (user == pointer.getElement()) {
-                getUsers().deleteInIndex(i);
-                break;
-            }
+        List<Relation> relationList = user.getRelations();
+        Nodo<Relation> pointer = relationList.getHead();
+        
+//        List<Relation> userRelationList;
+        
+        while (pointer != null) {
+            getRelations().deleteByElement(pointer.getElement());
+            pointer.getElement().getOtherUser(user).getRelations().deleteByElement(pointer.getElement());
+//            userRelationList.deleteByElement(pointer.getElement());
             
-            pointer.getNext();
+            
+            pointer = pointer.getNext();
         }
         
-        
-        Nodo<Relation> pointer2 = getRelations().getHead();
-        Nodo<Relation> pointer3 = user.getRelations().getHead();
-        for (int i = 0; i < getRelations().getSize(); i++) {
-            for (int j = 0; j < user.getRelations().getSize(); j++) {
-                if (pointer3.getElement() == pointer2.getElement()) {
-                    getRelations().deleteInIndex(i);
-                }
-                
-                pointer3 = pointer3.getNext();
-            }
-            pointer3 = user.getRelations().getHead();
-            pointer2 = pointer2.getNext();
-        }
-        
-        Nodo<Relation> pointer4 = user.getRelations().getHead();
-        User user2 = null;
-        
-        for (int i = 0; i < user.getRelations().getSize(); i++) {
-            user2 = pointer4.getElement().getOtherUser(user);
-            Nodo<Relation> pointer5 = user2.getRelations().getHead();
-            for (int j = 0; j < user2.getRelations().getSize(); j++) {
-                if (pointer5.getElement() == pointer4.getElement()) {
-                    user2.getRelations().deleteInIndex(i);
-                }
-            }
-            pointer4 = pointer4.getNext();
-        }
         
     }
+    
+    public Relation findRelation(User user1, User user2) {
+        List<Relation> relationList = user1.getRelations();
+        Nodo<Relation> pointer = relationList.getHead();
+        
+        while (pointer != null) {
+            if (pointer.getElement().getOtherUser(user1) == user2) {
+                return pointer.getElement();
+            }
+            
+            pointer = pointer.getNext();
+        }
+        
+        return null;
+    }
+    
+    public void deleteRelation(String user1String, String user2String) {
+        User user1 = findUserByName(user1String);
+        User user2 = findUserByName(user2String);
+        Relation relation = findRelation(user1, user2);
+        
+        getRelations().deleteByElement(relation);
+        user1.getRelations().deleteByElement(relation);
+        user2.getRelations().deleteByElement(relation);
+        
+    }
+    
+    
     
     public User findUserById(int id) {
         User user = null;

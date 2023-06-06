@@ -20,11 +20,14 @@ public class Main {
      */
     public static void main(String[] args) {
         Function func = new Function();
-        Grafo grafo = func.readTxt();
+        Grafo grafo = new Grafo();
+        grafo = func.readTxt(null, grafo);
         
-        
+//        grafo.deleteUserByName("@andresimery");
+//        grafo.findUserByName("@maxfontana").getRelations().printListRelation(grafo.findUserByName("@maxfontana").getRelations());
         
         Graph graph = grafo.grafoToGraphStream();
+        
         
         Ventana1 v1 = new Ventana1(graph, grafo);
        

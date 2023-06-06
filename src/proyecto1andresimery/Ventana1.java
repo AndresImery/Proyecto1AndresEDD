@@ -6,7 +6,10 @@ package proyecto1andresimery;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
@@ -40,20 +43,24 @@ public class Ventana1 extends javax.swing.JFrame {
         return this.grafo;
     }
     
-    public void addUser(User user) {
-        this.grafo.addUser(user);
+    public void updateGraph() {
         this.graph = this.grafo.grafoToGraphStream();
-        
         jPanelGraph.removeAll();
         createUIComponents(this.graph);
     }
     
+    public void addUser(User user) {
+        this.grafo.addUser(user);
+        
+        
+        updateGraph();
+    }
+    
     public void addRelation(Relation relation) {
         this.grafo.addRelation(relation);
-        this.graph = this.grafo.grafoToGraphStream();
+
         
-        jPanelGraph.removeAll();
-        createUIComponents(this.graph);
+        updateGraph();
     }
     
     public void createUIComponents(Graph graph) {
@@ -80,12 +87,20 @@ public class Ventana1 extends javax.swing.JFrame {
         jPanelGraph = new javax.swing.JPanel();
         jButtonNewUser = new javax.swing.JButton();
         jButtonNewRelation = new javax.swing.JButton();
+        jButtonSave = new javax.swing.JButton();
+        jButtonLoad = new javax.swing.JButton();
+        jButtonDeleteUser = new javax.swing.JButton();
+        jButtonDeleteRelation = new javax.swing.JButton();
+        jButtonDFT = new javax.swing.JButton();
+        jButtonBFT = new javax.swing.JButton();
+        jButtonShowLists = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelGraph.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(jPanelGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 780, 510));
+        getContentPane().add(jPanelGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 780, 530));
 
         jButtonNewUser.setText("Nuevo Usuario");
         jButtonNewUser.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +108,7 @@ public class Ventana1 extends javax.swing.JFrame {
                 jButtonNewUserActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 130, -1));
+        getContentPane().add(jButtonNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
 
         jButtonNewRelation.setText("Nueva Relacion");
         jButtonNewRelation.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +116,63 @@ public class Ventana1 extends javax.swing.JFrame {
                 jButtonNewRelationActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNewRelation, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, -1));
+        getContentPane().add(jButtonNewRelation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        jButtonSave.setText("Guardar");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+
+        jButtonLoad.setText("Cargar Archivo");
+        jButtonLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonLoad, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+
+        jButtonDeleteUser.setText("Borrar Usuario");
+        jButtonDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteUserActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonDeleteUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 120, -1));
+
+        jButtonDeleteRelation.setText("Borrar Relacion");
+        jButtonDeleteRelation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteRelationActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonDeleteRelation, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
+
+        jButtonDFT.setText("DFT");
+        jButtonDFT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDFTActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonDFT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+
+        jButtonBFT.setText("BFT");
+        jButtonBFT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBFTActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonBFT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, -1));
+
+        jButtonShowLists.setText("Mostrar Listas");
+        jButtonShowLists.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowListsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonShowLists, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,6 +186,45 @@ public class Ventana1 extends javax.swing.JFrame {
         new NewRelationByNameWindow(this);
         setVisible(false);
     }//GEN-LAST:event_jButtonNewRelationActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        (new Function()).writeTxt(grafo);
+    }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jButtonLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadActionPerformed
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(null);
+        File path = file.getSelectedFile();
+        this.grafo = (new Function()).readTxt(path, this.grafo);
+        this.grafo.getUsers().printListUser(this.grafo.getUsers());
+        
+        setVisible(false);
+        updateGraph();
+        setVisible(true);
+    }//GEN-LAST:event_jButtonLoadActionPerformed
+
+    private void jButtonDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUserActionPerformed
+        new DeleteUserWindow(this);
+        setVisible(false);
+    }//GEN-LAST:event_jButtonDeleteUserActionPerformed
+
+    private void jButtonDFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDFTActionPerformed
+        JOptionPane.showMessageDialog(null, "Existen " + this.grafo.depthFirstTraversal() + " islas en el grafo.");
+    }//GEN-LAST:event_jButtonDFTActionPerformed
+
+    private void jButtonBFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBFTActionPerformed
+        JOptionPane.showMessageDialog(null, "Existen " + this.grafo.breadthDepthTraversal() + " islas en el grafo.");
+    }//GEN-LAST:event_jButtonBFTActionPerformed
+
+    private void jButtonDeleteRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteRelationActionPerformed
+        new DeleteRelationWindow(this);
+        setVisible(false);
+    }//GEN-LAST:event_jButtonDeleteRelationActionPerformed
+
+    private void jButtonShowListsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowListsActionPerformed
+        new ListsWindow(this);
+        setVisible(false);
+    }//GEN-LAST:event_jButtonShowListsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +263,15 @@ public class Ventana1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBFT;
+    private javax.swing.JButton jButtonDFT;
+    private javax.swing.JButton jButtonDeleteRelation;
+    private javax.swing.JButton jButtonDeleteUser;
+    private javax.swing.JButton jButtonLoad;
     private javax.swing.JButton jButtonNewRelation;
     private javax.swing.JButton jButtonNewUser;
+    private javax.swing.JButton jButtonSave;
+    private javax.swing.JButton jButtonShowLists;
     private javax.swing.JPanel jPanelGraph;
     // End of variables declaration//GEN-END:variables
 }
