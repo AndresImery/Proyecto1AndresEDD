@@ -7,14 +7,17 @@ package proyecto1andresimery;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 
-/**
+/** Esta clase permite crear nuevos usuarios y agregarlos al grafo principal
  *
  * @author andresimery
  */
 public class NewUserWindow extends javax.swing.JFrame {
+     //Campos de la clase
     private static Ventana1 v1;
+    
     /**
-     * Creates new form NewUserWindow
+     * Constructor
+     * @param v1 El parámetro v1 recibe la ventana1 para poder guardar todo y seguir manipulando el programa
      */
     public NewUserWindow(Ventana1 v1) {
         initComponents();
@@ -94,6 +97,10 @@ public class NewUserWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Agrega el usuario al grafo
+     * 
+     */
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         try {
             Integer id = null;
@@ -121,6 +128,10 @@ public class NewUserWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
+    /**
+     * Cancela la ventana
+     * 
+     */
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         v1.setVisible(true);
         dispose();

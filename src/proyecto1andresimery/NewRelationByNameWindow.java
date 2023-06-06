@@ -6,14 +6,17 @@ package proyecto1andresimery;
 
 import javax.swing.JOptionPane;
 
-/**
+/** Esta clase permite crear nuevas relaciones entre los usuarios desde una ventana
  *
  * @author andresimery
  */
 public class NewRelationByNameWindow extends javax.swing.JFrame {
+     //Campos de la clase
     private static Ventana1 v1;
+    
     /**
-     * Creates new form NewRelationByNameWindow
+     * Constructor
+     * @param v1 El parámetro v1 recibe la ventana1 para poder guardar todo y seguir manipulando el programa
      */
     public NewRelationByNameWindow(Ventana1 v1) {
         initComponents();
@@ -106,11 +109,19 @@ public class NewRelationByNameWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cancela la ventana
+     * 
+     */
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         v1.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    /**
+     * Agrega la relacion al grafo
+     * 
+     */
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         try {
             String user1String = jTextPaneUser1.getText();

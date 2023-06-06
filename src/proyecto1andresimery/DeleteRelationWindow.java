@@ -11,9 +11,12 @@ import javax.swing.JOptionPane;
  * @author andresimery
  */
 public class DeleteRelationWindow extends javax.swing.JFrame {
+     //Campos de la clase
     private static Ventana1 v1;
+    
     /**
-     * Creates new form DeleteRelationWindow
+     * Constructor
+     * @param v1 El parámetro v1 recibe la ventana1 para poder guardar todo y seguir manipulando el programa
      */
     public DeleteRelationWindow(Ventana1 v1) {
         initComponents();
@@ -23,6 +26,10 @@ public class DeleteRelationWindow extends javax.swing.JFrame {
         setVisible(true);
     }
     
+    /**
+     * Carga la lista de relaciones en la ventana
+     * 
+     */
     private void loadList() {
         List<Relation> relationList = this.v1.getGrafo().getRelations();
         Nodo<Relation> pointer = relationList.getHead();
@@ -113,15 +120,24 @@ public class DeleteRelationWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cancela la ventana
+     * 
+     */
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         this.v1.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+ 
     private void listRelationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRelationsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listRelationsActionPerformed
 
+    /**
+     * Borra la relación
+     * 
+     */
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         if (this.v1.getGrafo().findUserByName("@" + jTextPaneUser1.getText()) != null && this.v1.getGrafo().findUserByName("@" + jTextPaneUser2.getText()) != null) {
             this.v1.getGrafo().deleteRelation("@" + jTextPaneUser1.getText(), "@" + jTextPaneUser2.getText());

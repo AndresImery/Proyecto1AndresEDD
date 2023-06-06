@@ -9,11 +9,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
+/** Esta clase tiene las funciones para leer y escribir en archivos de texto (.txt)
  *
  * @author andresimery
  */
 public class Function {
+    
+    /**
+     * Lee un archivo de texto
+     * 
+     * @param file Recibe un archivo donde va a leer o null para leer el archivo de defecto
+     * @param graph Recibe un grafo donde va a almacenar la información que lea
+     * @return retorna el grafo con la información que leyo agregada
+     */
     public Grafo readTxt(File file, Grafo graph) {
 //        Grafo graph = new Grafo();
         
@@ -58,6 +66,11 @@ public class Function {
         return graph;
     }
     
+    /**
+     * Escribe un archivo de texto
+     * 
+     * @param graph Recibe el grafo que va a utilizar para almacenar la información en el archivo de texto
+     */
     public void writeTxt(Grafo graph) {
         String string = "Usuarios\n";
         

@@ -4,14 +4,16 @@
  */
 package proyecto1andresimery;
 
-/**
+/** Esta clase muestra las listas de usuarios y relaciones dentro del grafo
  *
  * @author andresimery
  */
 public class ListsWindow extends javax.swing.JFrame {
+     //Campos de la clase
     private static Ventana1 v1;
     /**
      * Creates new form ListsWindow
+     * @param v1 Ventana principal
      */
     public ListsWindow(Ventana1 v1) {
         initComponents();
@@ -21,6 +23,9 @@ public class ListsWindow extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    /**
+     * Carga las listas de usuarios y relaciones al jFrame
+     */
     public void loadLists() {
         List<Relation> relationList = this.v1.getGrafo().getRelations();
         Nodo<Relation> pointer = relationList.getHead();
@@ -89,6 +94,9 @@ public class ListsWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Devuelve a la ventana 1
+     */
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         this.v1.setVisible(true);
         dispose();

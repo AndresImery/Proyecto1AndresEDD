@@ -9,7 +9,7 @@ package proyecto1andresimery;
 import org.graphstream.graph.*;
 
 
-/**
+/** Clase principal del proyecto
  *
  * @author andresimery
  */

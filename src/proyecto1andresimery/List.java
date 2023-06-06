@@ -4,18 +4,27 @@
  */
 package proyecto1andresimery;
 
-/**
+/** Esta clase permite organizar objetos de cualquier tipo en una Lista
  *
  * @author andresimery
  */
 public class List<T> {
+     //Campos de la clase
     private Nodo<T> head;
     private int size;
 
+    /**
+     * Constructor
+     *
+     */
     public List() {
         this.head = null;
     }
 
+    /**
+     * Setters y getters
+     * 
+     */
     public Nodo<T> getHead() {
         return head;
     }
@@ -32,11 +41,19 @@ public class List<T> {
         this.size = size;
     }
     
-    
+    /**
+     * Devuelve un valor de true o false
+     * @return La lista esta vacia?
+     */
     public boolean isEmpty() {
         return getHead() == null;
     }
     
+    /**
+     * Agrega al final de la lista
+     * 
+     * @param element Recibe un objeto cualquiera del mismo tipo de la lista
+     */
     public void insertLast(T element) {
         Nodo<T> node = new Nodo<>(element);
         if (isEmpty()) {
@@ -51,6 +68,11 @@ public class List<T> {
         size++;
     }
     
+    /**
+     * Borra el elemento en el index
+     * 
+     * @param index recibe el index donde va a borrar un elemento de la lista
+     */
     public void deleteInIndex(int index) {
         if (index <= getSize()) {
             Nodo<T> pointer = getHead();
@@ -63,6 +85,11 @@ public class List<T> {
         }
     } 
     
+    /**
+     * Borra el elemento
+     * 
+     * @param element Recibe un objeto cualquiera del mismo tipo de la lista
+     */
     public void deleteByElement(T element) {
         Nodo<T> pointer = getHead();
         if (!isEmpty()) {
@@ -84,6 +111,10 @@ public class List<T> {
         }
     }
     
+    /**
+     * Imprime los elementos de la lista
+     * 
+     */
     public void printList() {
         System.out.println("-----");
         Nodo pointer = getHead();
@@ -93,6 +124,11 @@ public class List<T> {
         }
     }
     
+    /**
+     * Imprime los elementos de la lista de usuarios
+     * 
+     * @param userList Recibe userList como una lista de usuarios
+     */
     public void printListUser(List<User> userList) {
         System.out.println("-----");
         Nodo<User> pointer = userList.getHead();
@@ -102,6 +138,11 @@ public class List<T> {
         }
     }
     
+    /**
+     * Imprime los elementos de la lista de relaciones
+     * 
+     * @param relationList Recibe relationList como una lista de relaciones
+     */
     public void printListRelation(List<Relation> relationList) {
         System.out.println("-----");
         Nodo<Relation> pointer = relationList.getHead();

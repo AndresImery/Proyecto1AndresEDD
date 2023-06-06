@@ -6,19 +6,28 @@ package proyecto1andresimery;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
-/**
+
+/** Esta clase define objetos del grafo, donde se almacena toda la informacion de los usuarios y relaciones
  *
  * @author andresimery
  */
 public class Grafo {
+     //Campos de la clase
     private List<User> users;
     private List<Relation> relations;
 
+    /**
+     * Constructor
+     *
+     */
     public Grafo() {
         this.users = new List<User>();
         this.relations = new List<Relation>();
     }
 
+    /**
+     * Getters y setters
+     */
     public List<User> getUsers() {
         return users;
     }
@@ -35,15 +44,26 @@ public class Grafo {
         this.relations = relations;
     }
 
+    /**
+     * Agrega un usuario al grafo
+     * @param user el usuario que agregara
+     */
     public void addUser(User user) {
         this.users.insertLast(user);
     }
     
+    /**
+     * Agrega una relacion al grafo
+     * @param relation la relacion que agregara
+     */
     public void addRelation(Relation relation) {
         this.relations.insertLast(relation);
     }
     
-    
+    /**
+     * Borra un usuario por username
+     * @param username String del username del usuario
+     */
     public void deleteUserByName(String username) {
         User user = findUserByName(username);
         getUsers().deleteByElement(user);
@@ -65,6 +85,11 @@ public class Grafo {
         
     }
     
+    /**
+     * Consigue una relacion del grafo
+     * @param user1 usuario1
+     * @param user2 usuario2
+     */
     public Relation findRelation(User user1, User user2) {
         List<Relation> relationList = user1.getRelations();
         Nodo<Relation> pointer = relationList.getHead();
@@ -80,6 +105,11 @@ public class Grafo {
         return null;
     }
     
+    /**
+     * Borra una relacion del grafo
+     * @param user1String el username de usuario1
+     * @param user2String el username de usuario2
+     */
     public void deleteRelation(String user1String, String user2String) {
         User user1 = findUserByName(user1String);
         User user2 = findUserByName(user2String);
@@ -92,7 +122,11 @@ public class Grafo {
     }
     
     
-    
+    /**
+     * Consigue un usuario por su ID
+     * @param id el id del usuario
+     * @return el usuario
+     */
     public User findUserById(int id) {
         User user = null;
         Nodo<User> pointer = getUsers().getHead();
@@ -106,6 +140,11 @@ public class Grafo {
         return user;
     }
     
+    /**
+     * Consigue un usuario por su username
+     * @param username el username del usuario
+     * @return el usuario
+     */
     public User findUserByName(String username) {
         User user = null;
         Nodo<User> pointer = getUsers().getHead();
@@ -119,7 +158,10 @@ public class Grafo {
         return user;
     }
     
-    
+    /**
+     * Recorre el grafo de manera depthFirst
+     * @return devuelve la cantidad de islas que conto al recorrer
+     */
     public int depthFirstTraversal() {
         List<User> usersVisited = new List<>();
         Stack<User> stack = new Stack<>();
@@ -161,6 +203,11 @@ public class Grafo {
         return contador;
     }
     
+    /**
+     * Consigue el proximo usuario del metodo Depth First
+     * @param currentUser usuario actual
+     * @param usersVisited lista de los usuarios que ya se visitaron
+     */
     public User getNextUser(User currentUser, List<User> usersVisited) {
         Nodo<Relation> pointerRelations = currentUser.getRelations().getHead();
         
@@ -175,6 +222,12 @@ public class Grafo {
         return currentUser;
     }
     
+    /**
+     * Proxima isla a recorrer
+     * 
+     * @param usersVisited lista de los usuarios que ya se visitaron
+     * @return Retorna el proximo usuario que esta en el grafo pero no se visito al recorrer la isla
+     */
     public User getNextIsland(List<User> usersVisited) {
         Nodo<User> pointerUsers = getUsers().getHead();
         Nodo<User> pointerVisited = usersVisited.getHead();
@@ -199,6 +252,11 @@ public class Grafo {
         return null;
     }
     
+    /**
+     * Dice si ya se visito ese usuario
+     * @param nextUser usuario que se quiere conocer
+     * @param usersVisited lista de los usuarios que ya se visitaron
+     */
     public boolean isVisited(User nextUser, List<User> usersVisited) {
         Nodo<User> pointer = usersVisited.getHead();
         while (pointer != null) {
@@ -210,6 +268,10 @@ public class Grafo {
         return false;
     }
     
+    /**
+     * Recorre el grafo de manera breadthFirst
+     * @return devuelve la cantidad de islas que conto al recorrer
+     */
     public int breadthDepthTraversal() {
         List<User> usersVisited = new List<>();
         Queue<User> queue = new Queue<>();
@@ -257,7 +319,10 @@ public class Grafo {
         return contador;
     }
     
-    
+    /**
+     * Transforma un grafo en un graphstream
+     * @return devuelve el graphstream
+     */
     public Graph grafoToGraphStream() {
         Graph graph = new SingleGraph("embedded");
         Nodo<User> pointer = getUsers().getHead();

@@ -11,9 +11,12 @@ import javax.swing.JOptionPane;
  * @author andresimery
  */
 public class DeleteUserWindow extends javax.swing.JFrame {
+     //Campos de la clase
     private static Ventana1 v1;
+    
     /**
-     * Creates new form DeleteUserWindow
+     * Constructor
+     * @param v1 El parámetro v1 recibe la ventana1 para poder guardar todo y seguir manipulando el programa
      */
     public DeleteUserWindow(Ventana1 v1) {
         initComponents();
@@ -23,6 +26,10 @@ public class DeleteUserWindow extends javax.swing.JFrame {
         setVisible(true);
     }
     
+    /**
+     * Carga la liista de usuarios en la ventana
+     * 
+     */
     private void loadList() {
         List<User> userList = this.v1.getGrafo().getUsers();
         Nodo<User> pointer = userList.getHead();
@@ -108,11 +115,19 @@ public class DeleteUserWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cancela la ventana
+     * 
+     */
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         v1.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    /**
+     * Borra el usuario
+     * 
+     */
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         
         if (this.v1.getGrafo().findUserByName("@" + jTextPaneUser.getText()) != null) {

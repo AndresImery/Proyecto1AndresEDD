@@ -4,29 +4,28 @@
  */
 package proyecto1andresimery;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.swingViewer.*;
 import org.graphstream.ui.view.*;
 
 
-/**
+/** Esta clase es la ventana principal de todo el programa y muestra el grafo visualizado
  *
  * @author andresimery
  */
 public class Ventana1 extends javax.swing.JFrame {
+     //Campos de la clase
     private static Graph graph;
     private static Grafo grafo;
     
     /**
-     * Creates new form Ventana1
+     * Constructor
+     * @param graph El parámetro graph recibe el grafo de GraphStream para poder visualizarlo
+     * @param grafo El parámetro grafo recibe el grafo de creado en el programa para poder manejar la información
      */
     public Ventana1(Graph graph, Grafo grafo) {
         initComponents();
@@ -39,16 +38,29 @@ public class Ventana1 extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Getter
+     * 
+     */
     public Grafo getGrafo() {
         return this.grafo;
     }
     
+    /**
+     * Actualiza el grafo de GraphStream
+     * 
+     */
     public void updateGraph() {
         this.graph = this.grafo.grafoToGraphStream();
         jPanelGraph.removeAll();
         createUIComponents(this.graph);
     }
     
+    /**
+     * Agrega un usuario al grafo
+     * 
+     * @param user el usuario que se va a agregar
+     */
     public void addUser(User user) {
         this.grafo.addUser(user);
         
@@ -56,6 +68,11 @@ public class Ventana1 extends javax.swing.JFrame {
         updateGraph();
     }
     
+    /**
+     * Agrega una relación al grafo
+     * 
+     * @param relation la relación que se va a agregar
+     */
     public void addRelation(Relation relation) {
         this.grafo.addRelation(relation);
 
@@ -63,6 +80,11 @@ public class Ventana1 extends javax.swing.JFrame {
         updateGraph();
     }
     
+    /**
+     * Agrega el grafo de GraphStream al jPanel
+     * 
+     * @param graph el grafo de graphstream que va a agregar
+     */
     public void createUIComponents(Graph graph) {
         System.setProperty("org.graphstream.ui", "swing");
 
@@ -177,20 +199,36 @@ public class Ventana1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Va a la ventana de NewUserWindow
+     *
+     */
     private void jButtonNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewUserActionPerformed
         new NewUserWindow(this);
         setVisible(false);
     }//GEN-LAST:event_jButtonNewUserActionPerformed
 
+    /**
+     * Va a la ventana de NewRelationByNameWindow
+     *
+     */
     private void jButtonNewRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewRelationActionPerformed
         new NewRelationByNameWindow(this);
         setVisible(false);
     }//GEN-LAST:event_jButtonNewRelationActionPerformed
 
+    /**
+     * Guarda en el archivo de texto
+     *
+     */
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         (new Function()).writeTxt(grafo);
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+    /**
+     * Carga un archivo de texto
+     *
+     */
     private void jButtonLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadActionPerformed
         JFileChooser file = new JFileChooser();
         file.showOpenDialog(null);
@@ -203,24 +241,44 @@ public class Ventana1 extends javax.swing.JFrame {
         setVisible(true);
     }//GEN-LAST:event_jButtonLoadActionPerformed
 
+    /**
+     * Va a la ventana de DeleteUserWindow
+     *
+     */
     private void jButtonDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUserActionPerformed
         new DeleteUserWindow(this);
         setVisible(false);
     }//GEN-LAST:event_jButtonDeleteUserActionPerformed
 
+    /**
+     * Recorre con Depth First Traversal y dice la cantidad de islas que hay
+     *
+     */
     private void jButtonDFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDFTActionPerformed
         JOptionPane.showMessageDialog(null, "Existen " + this.grafo.depthFirstTraversal() + " islas en el grafo.");
     }//GEN-LAST:event_jButtonDFTActionPerformed
 
+    /**
+     * Recorre con Breadth First Traversal y dice la cantidad de islas que hay
+     *
+     */
     private void jButtonBFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBFTActionPerformed
         JOptionPane.showMessageDialog(null, "Existen " + this.grafo.breadthDepthTraversal() + " islas en el grafo.");
     }//GEN-LAST:event_jButtonBFTActionPerformed
 
+    /**
+     * Va a la ventana de DeleteRelationWindow
+     *
+     */
     private void jButtonDeleteRelationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteRelationActionPerformed
         new DeleteRelationWindow(this);
         setVisible(false);
     }//GEN-LAST:event_jButtonDeleteRelationActionPerformed
 
+    /**
+     * Va a la ventana de ShowLists
+     *
+     */
     private void jButtonShowListsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowListsActionPerformed
         new ListsWindow(this);
         setVisible(false);

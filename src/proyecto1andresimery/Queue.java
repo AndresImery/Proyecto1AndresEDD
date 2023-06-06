@@ -4,21 +4,30 @@
  */
 package proyecto1andresimery;
 
-/**
+/** Esta clase es una cola que se utiliza para poder utilizar el metodo breadthFirstTraversal (BFS)
  *
  * @author andresimery
  */
 public class Queue<T> {
+     //Campos de la clase
     private Nodo<T> head;
     private Nodo<T> tail;
     private int size;
 
+    /**
+     * Constructor
+     * 
+     */
     public Queue() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
+    /**
+     * Getters y Setters
+     * 
+     */
     public Nodo<T> getHead() {
         return head;
     }
@@ -47,6 +56,11 @@ public class Queue<T> {
         return getHead() == null;
     }
     
+    /**
+     * Agrega un elemento a la cola
+     * 
+     * @param data el elemento que agrega
+     */
     public void enqueue(T data) {
         Nodo<T> node = new Nodo(data);
         if (isEmpty()) {
@@ -59,6 +73,11 @@ public class Queue<T> {
         size++;
     }
     
+    /**
+     * Quita un elemento de la cola
+     * 
+     * @return el elemento que quita
+     */
     public T dequeue() {
         if (isEmpty()) {
             return null;
@@ -71,6 +90,10 @@ public class Queue<T> {
         return temp.getElement();
     }
     
+    /**
+     * Imprime la cola
+     * 
+     */
     public void print() {
         for (int i = 0; i < getSize(); i++) {
             T aux = dequeue();

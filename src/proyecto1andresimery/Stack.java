@@ -4,19 +4,28 @@
  */
 package proyecto1andresimery;
 
-/**
+/** Esta clase es una pila utilizada para poder aplicar el método de depthFirstTraversal (DFS)
  *
  * @author andresimery
  */
 public class Stack<T> {
+     //Campos de la clase
     private Nodo<T> head;
     private int size;
 
+    /**
+     * Constructor
+     * 
+     */
     public Stack() {
         this.head = null;
         this.size = 0;
     }
 
+    /**
+     * Getters y Setters
+     * 
+     */
     public Nodo<T> getHead() {
         return head;
     }
@@ -37,6 +46,11 @@ public class Stack<T> {
         return getHead() == null;
     }
     
+    /**
+     * Agrega un elemento a la pila
+     * 
+     * @param element el elemento que agrega
+     */
     public void push(T element) {
         Nodo<T> node = new Nodo(element);
         if (isEmpty()) {
@@ -48,6 +62,11 @@ public class Stack<T> {
         size++;
     }
     
+    /**
+     * Quita un elemento de la pila
+     * 
+     * @return devuelve un nodo del elemento
+     */
     public Nodo<T> pop() {
         Nodo<T> node;
         if (!isEmpty()) {
